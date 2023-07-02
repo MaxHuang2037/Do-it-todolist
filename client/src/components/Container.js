@@ -1,13 +1,13 @@
 import Todo from './Todo'
 
-const Container = ({backendData, setBackendData}) => {
+const Container = ({backendData}) => {
     return(
         <div>
-			{(typeof backendData.users === "undefined") ? (
+			{(typeof backendData.todo === "undefined") ? (
 				<p>Loading...</p>
 			) : (
-				backendData.users.map((user, i) => (
-					<Todo key={i} setBackEndData={setBackendData} backendData={backendData} data={user}></Todo>
+				backendData.todo.map((todos, i) => (
+					<Todo key={i} data={todos}></Todo>
 				))
 			)}
         </div>

@@ -1,0 +1,67 @@
+html{
+    background-color: black;
+}
+
+*{
+    color: white;
+    font-size: 20px;
+}
+
+button{
+    background: none;
+    border-style: none;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.title{
+    font-size: 50px;
+}
+
+.todoList{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.inputBar{
+    display: flex;
+    margin: 1rem 0 1rem 0;
+    width: 50vw;
+}
+
+.input{
+    background-color: black;
+    border-style: solid;
+    border-color: rgb(45, 45, 45);
+    border-radius: 2rem 0 0 2rem;
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+.addButton{
+    padding: 1rem;
+    border-radius: 0 2rem 2rem 0;
+    border-style: solid;
+    border-left: none;
+    border-color: rgb(45, 45, 45);
+}
+
+.todo{
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    border-style: solid;
+    padding: 1rem;
+    width: 50vw;
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+    border-style: solid;
+    border-color: rgb(45, 45, 45);
+}
+
+.deleteButton{
+
+}
