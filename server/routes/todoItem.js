@@ -15,5 +15,9 @@ router.route("/api")
     const todo = await Todo.findOneAndDelete(req.body)
     res.json({todo})
 })
+.patch(async (req, res) => {
+    const todo = await Todo.findByIdAndUpdate(req.body._id, req.body)
+    res.json({todo})
+})
 
 module.exports = router

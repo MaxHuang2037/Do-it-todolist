@@ -62,6 +62,8 @@ button:hover{
     border-color: rgb(45, 45, 45);
 }
 
-.deleteButton{
-
+.todoInput{
+    background-color: black;
+    border-style: none;
+    flex-grow: 1;
 }

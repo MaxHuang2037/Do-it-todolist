@@ -13,7 +13,6 @@ const Input = ({todo, setTodo}) => {
             })
         })
         setTodo("")
-        e.preventDefault()
     }
     
     function inputHandler(e){
