@@ -1,7 +1,7 @@
 import styles from "./index.module.css"
 import {useEffect, useState} from 'react'
 import { useDispatch } from "react-redux"
-import { deleteTodo, updateTodo } from "../features/todo/todoSlice"
+import { deleteTodoItem, updateTodoItem } from "../features/todo/todoSlice"
 
 const Todo = ({data}) => {
     const dispatch = useDispatch()
@@ -24,7 +24,8 @@ const Todo = ({data}) => {
         } else {
             temp = true
         }
-        dispatch(updateTodo({id: data._id, name: data.todoItem, done: temp}))
+        dispatch(updateTodoItem({id: data._id, name: data.todoItem, done: temp}))
+        window.location.reload(false)
     }
     
     function editTodo(){
@@ -34,7 +35,8 @@ const Todo = ({data}) => {
             elem.focus()
         } else {
             elem.readOnly = true
-            dispatch(updateTodo({id: data._id, name: currentTodo, done: data.done}))
+            dispatch(updateTodoItem({id: data._id, name: currentTodo, done: data.done}))
+            window.location.reload(false)
         }
     }
 
@@ -59,11 +61,13 @@ const Todo = ({data}) => {
             </button>
             <button 
                 className={styles.deleteButton} 
-                onClick={() => dispatch(deleteTodo(data))}>
+                onClick={() => {
+                    dispatch(deleteTodoItem(data))
+                    window.location.reload(false)
+                }}>
                 <span class="material-symbols-outlined">delete</span>
             </button>
         </div>
-        
     )
 }
 
