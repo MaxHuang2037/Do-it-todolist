@@ -1,28 +1,21 @@
 import styles from "./index.module.css"
 import {useEffect, useState} from 'react'
+import { useDispatch } from "react-redux"
+import { deleteTodo, updateTodo } from "../features/todo/todoSlice"
 
 const Todo = ({data}) => {
+    const dispatch = useDispatch()
     const [currentTodo, setCurrentTodo] = useState(data.todoItem)
-    const elem = document.getElementById(data._id)
     
     useEffect(() => {
+        const elem = document.getElementById(data._id)
         if (data.done){
-            const elem = document.getElementById(data._id)
             elem.style.textDecoration = "line-through"
+        } else {
+            elem.style.textDecoration = "none"
         }
-    }, [data._id, data.done]);
+    }, [data.done]);
     
-    function deleteTodo(){
-        fetch('/api', {
-            method: 'DELETE',
-            body: JSON.stringify(data),
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            }
-        })
-        window.location.reload(false)
-    }
     
     function done(){
         let temp
@@ -31,29 +24,17 @@ const Todo = ({data}) => {
         } else {
             temp = true
         }
-        updateData(data.todoItem, temp)
-        window.location.reload(false)
-    }
-
-    function updateData(item, done){
-        fetch('/api', {
-            method: 'PATCH',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({_id: data._id, done: done, todoItem: item})
-        })
+        dispatch(updateTodo({id: data._id, name: data.todoItem, done: temp}))
     }
     
     function editTodo(){
+        const elem = document.getElementById(data._id)
         if (elem.readOnly){
             elem.readOnly = false
             elem.focus()
         } else {
             elem.readOnly = true
-            updateData(currentTodo, data.done)
-            window.location.reload(false)
+            dispatch(updateTodo({id: data._id, name: currentTodo, done: data.done}))
         }
     }
 
@@ -76,7 +57,9 @@ const Todo = ({data}) => {
             <button className={styles.updateButton} onClick={editTodo}>
                 <span class="material-symbols-outlined">edit</span>
             </button>
-            <button className={styles.deleteButton} onClick={deleteTodo}>
+            <button 
+                className={styles.deleteButton} 
+                onClick={() => dispatch(deleteTodo(data))}>
                 <span class="material-symbols-outlined">delete</span>
             </button>
         </div>

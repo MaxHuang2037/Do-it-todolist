@@ -1,13 +1,14 @@
 import Todo from './Todo'
-
-const Container = ({backendData}) => {
+import { useSelector } from 'react-redux'
+const Container = () => {
+    const {todoItems} = useSelector((store) => store.todo)
     return(
         <div>
-			{(typeof backendData.todo === "undefined") ? (
+			{(typeof todoItems === "undefined") ? (
 				<p>Loading...</p>
 			) : (
-				backendData.todo.map((todos, i) => (
-					<Todo key={i} data={todos}></Todo>
+				todoItems.map((todo) => (
+					<Todo key={todo._id} data={todo}></Todo>
 				))
 			)}
         </div>

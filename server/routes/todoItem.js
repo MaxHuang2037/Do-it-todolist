@@ -12,7 +12,7 @@ router.route("/api")
     res.json({todo})
 })
 .delete(async (req, res) => {
-    const todo = await Todo.findOneAndDelete(req.body)
+    const todo = await Todo.findByIdAndDelete(req.body)
     res.json({todo})
 })
 .patch(async (req, res) => {
