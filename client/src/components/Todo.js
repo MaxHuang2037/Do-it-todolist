@@ -16,8 +16,7 @@ const Todo = ({data}) => {
         }
     }, [data.done]);
     
-    
-    function done(){
+    const done = () => {
         let temp
         if (data.done){
             temp = false
@@ -28,7 +27,7 @@ const Todo = ({data}) => {
         window.location.reload(false)
     }
     
-    function editTodo(){
+    const editTodo = () => {
         const elem = document.getElementById(data._id)
         if (elem.readOnly){
             elem.readOnly = false
@@ -40,7 +39,7 @@ const Todo = ({data}) => {
         }
     }
 
-    function inputHandler(e){
+    const inputHandler= (e) => {
         setCurrentTodo(e.target.value)
     }
 
@@ -63,7 +62,6 @@ const Todo = ({data}) => {
                 className={styles.deleteButton} 
                 onClick={() => {
                     dispatch(deleteTodoItem(data))
-                    window.location.reload(false)
                 }}>
                 <span class="material-symbols-outlined">delete</span>
             </button>

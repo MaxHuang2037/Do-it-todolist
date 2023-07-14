@@ -48,6 +48,26 @@ export const updateTodoItem = createAsyncThunk("todo/updateTodoItem",
     }
 )
 
+export const createTodoItem = createAsyncThunk("todo/updateTodoItem",
+    async (todo) => {
+        try {
+            const res = await fetch('/api', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    todoItem: todo
+                })
+            })
+            return await res.json()
+        } catch(err) {
+            return console.log(err.message)
+        }
+    }
+)
+
 const initialState = {
     todoItems: [],
     isLoading: false
@@ -56,18 +76,13 @@ const initialState = {
 const todoSlice = createSlice({
     name: "todo",
     initialState,
-    reducers: {
-        createTodo: (state, {payload}) => {
-            
-        }
-    },
     extraReducers: {
         [getTodoItems.pending]: (state) => {
             state.isLoading = true
         },
         [getTodoItems.fulfilled]: (state, {payload}) => {
             state.isLoading = false
-            state.todoItems = payload.todo
+            state.todoItems = payload
         },
         [getTodoItems.rejected]: (state) => {
             state.isLoading = false
@@ -91,6 +106,16 @@ const todoSlice = createSlice({
             todo = payload
         },
         [updateTodoItem.rejected]: (state) => {
+            state.isLoading = false
+        },
+        [createTodoItem.pending]: (state) => {
+            state.isLoading = true
+        },
+        [createTodoItem.fulfilled]: (state, {payload}) => {
+            state.isLoading = false
+            state.todoItems = [...state.todoItems, payload]
+        },
+        [createTodoItem.rejected]: (state) => {
             state.isLoading = false
         },
     }

@@ -1,18 +1,13 @@
+import { useDispatch } from "react-redux"
 import styles from "./index.module.css"
+import { createTodoItem } from "../features/todo/todoSlice"
 
 const Input = ({todo, setTodo}) => {
+    const dispatch = useDispatch()
     function addTodo(e){
-        fetch('/api', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                todoItem: todo
-            })
-        })
+        dispatch(createTodoItem(todo))
         setTodo("")
+        e.preventDefault()
     }
     
     function inputHandler(e){
@@ -20,12 +15,10 @@ const Input = ({todo, setTodo}) => {
     }
 
     return(
-        <div>
-            <form className={styles.inputBar}>
-                <input className={styles.input} onChange={inputHandler} type='text' placeholder="Enter todo item" value={todo}></input>
-                <button className={styles.addButton} type="submit" onClick={addTodo}>Add</button>
-            </form>
-        </div>
+        <form className={styles.inputBar} onSubmit={addTodo}>
+            <input className={styles.input} onChange={inputHandler} type='text' placeholder="Enter todo item" value={todo}></input>
+            <button className={styles.addButton} type="submit">Add</button>
+        </form>
     )
 }
 
