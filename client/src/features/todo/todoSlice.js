@@ -76,48 +76,50 @@ const initialState = {
 const todoSlice = createSlice({
     name: "todo",
     initialState,
-    extraReducers: {
-        [getTodoItems.pending]: (state) => {
+    extraReducers: (builder) => {
+        builder.addCase(getTodoItems.pending, (state) => {
             state.isLoading = true
-        },
-        [getTodoItems.fulfilled]: (state, {payload}) => {
+        })
+        .addCase(getTodoItems.fulfilled, (state, {payload}) => {
             state.isLoading = false
             state.todoItems = payload
-        },
-        [getTodoItems.rejected]: (state) => {
+        })
+        .addCase(getTodoItems.rejected, (state) => {
             state.isLoading = false
-        },
-        [deleteTodoItem.pending]: (state) => {
+        })
+        .addCase(deleteTodoItem.pending, (state) => {
             state.isLoading = true
-        },
-        [deleteTodoItem.fulfilled]: (state, {payload}) => {
+        })
+        .addCase(deleteTodoItem.fulfilled, (state, {payload}) => {
             state.isLoading = false
             state.todoItems = state.todoItems.filter((item) => (payload._id !== item._id))
-        },
-        [deleteTodoItem.rejected]: (state) => {
+        })
+        .addCase(deleteTodoItem.rejected, (state) => {
             state.isLoading = false
-        },
-        [updateTodoItem.pending]: (state) => {
+        })
+        .addCase(updateTodoItem.pending, (state) => {
             state.isLoading = true
-        },
-        [updateTodoItem.fulfilled]: (state, {payload}) => {
+        })
+        .addCase(updateTodoItem.fulfilled, (state, {payload}) => {
             state.isLoading = false
             let todo = state.todoItems.find((item) => item._id === payload._id)
             todo = payload
-        },
-        [updateTodoItem.rejected]: (state) => {
+        })
+        .addCase(updateTodoItem.rejected, (state) => {
             state.isLoading = false
-        },
-        [createTodoItem.pending]: (state) => {
+        })
+        .addCase(createTodoItem.pending, (state) => {
+            console.log("pending")
             state.isLoading = true
-        },
-        [createTodoItem.fulfilled]: (state, {payload}) => {
+        })
+        .addCase(createTodoItem.fulfilled, (state, {payload}) => {
             state.isLoading = false
             state.todoItems = [...state.todoItems, payload]
-        },
-        [createTodoItem.rejected]: (state) => {
+        })
+        .addCase(createTodoItem.rejected, (state) => {
+            console.log("BORK")
             state.isLoading = false
-        },
+        })
     }
 })
 
