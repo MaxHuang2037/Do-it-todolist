@@ -48,11 +48,11 @@ export const updateTodoItem = createAsyncThunk("todo/updateTodoItem",
     }
 )
 
-export const createTodoItem = createAsyncThunk("todo/updateTodoItem",
+export const createTodoItem = createAsyncThunk("todo/createTodoItem",
     async (todo) => {
         try {
             const res = await fetch('/api', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
